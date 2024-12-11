@@ -6,7 +6,7 @@ plugins {
 
 android {
     namespace = "com.aditys.h_news"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.aditys.h_news"
