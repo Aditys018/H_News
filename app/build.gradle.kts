@@ -2,6 +2,8 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    id("kotlin-kapt")
+    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -56,4 +58,23 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+    implementation (libs.androidx.core.splashscreen) //Splash Api
+    implementation( libs.retrofit) //Retrofit
+    implementation(libs.converter.gson)
+    implementation(libs.coil.compose) //Coil
+    implementation( libs.androidx.datastore.preferences) //Datastore
+    implementation (libs.androidx.foundation) //Compose Foundation
+    implementation (libs.accompanist.systemuicontroller) //Accompanist
+    implementation (libs.paging.runtime) //Paging 3
+    implementation( libs.androidx.paging.compose)
+    implementation(libs.hilt.android) //hilt
+    kapt(libs.hilt.android.compiler)
+    implementation (libs.androidx.hilt.navigation.compose.v100)
+    implementation (libs.androidx.room.room.runtime) //Room
+    kapt ("androidx.room:room-compiler:2.6.1")
+    implementation (libs.androidx.room.ktx.v252)
+    implementation (libs.navigation.compose) //Compose Navigation
+    
+
 }
