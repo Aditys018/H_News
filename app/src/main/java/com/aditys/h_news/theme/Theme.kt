@@ -1,6 +1,5 @@
-package com.aditys.h_news.ui.theme
+package com.aditys.h_news.theme
 
-import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme

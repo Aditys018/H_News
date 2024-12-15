@@ -1,4 +1,4 @@
-package com.aditys.h_news.ui.theme
+package com.aditys.h_news.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

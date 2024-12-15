@@ -1,4 +1,4 @@
-package com.aditys.h_news.presentation.onboarding.components
+package com.aditys.h_news.ui.presentation.onboarding.components
 
 
 import androidx.compose.foundation.background
@@ -13,7 +13,7 @@ import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import com.aditys.h_news.presentation.onboarding.dimentions.IndicatorSize
+import com.aditys.h_news.ui.presentation.onboarding.dimentions.IndicatorSize
 
 @Composable
 fun PageIndicator(

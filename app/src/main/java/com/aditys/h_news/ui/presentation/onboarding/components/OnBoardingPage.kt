@@ -1,6 +1,5 @@
-package com.aditys.h_news.presentation.onboarding.components
+package com.aditys.h_news.ui.presentation.onboarding.components
 
-import android.content.res.Configuration
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
@@ -19,11 +18,11 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import com.aditys.h_news.R
-import com.aditys.h_news.presentation.onboarding.Page
-import com.aditys.h_news.presentation.onboarding.dimentions.MediumPadding1
-import com.aditys.h_news.presentation.onboarding.dimentions.MediumPadding2
-import com.aditys.h_news.presentation.onboarding.pages
-import com.aditys.h_news.ui.theme.H_NewsTheme
+import com.aditys.h_news.ui.presentation.onboarding.Page
+import com.aditys.h_news.ui.presentation.onboarding.dimentions.MediumPadding1
+import com.aditys.h_news.ui.presentation.onboarding.dimentions.MediumPadding2
+import com.aditys.h_news.ui.presentation.onboarding.pages
+import com.aditys.h_news.theme.H_NewsTheme
 
 @Composable
 fun OnboardingPage(

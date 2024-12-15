@@ -75,6 +75,7 @@ dependencies {
     kapt ("androidx.room:room-compiler:2.6.1")
     implementation (libs.androidx.room.ktx.v252)
     implementation (libs.navigation.compose) //Compose Navigation
+    implementation (libs.kotlinx.coroutines.android)  // Coroutines for asynchronous programming
     
 
 }

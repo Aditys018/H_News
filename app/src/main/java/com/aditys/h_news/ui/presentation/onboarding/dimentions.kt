@@ -1,4 +1,4 @@
-package com.aditys.h_news.presentation.onboarding
+package com.aditys.h_news.ui.presentation.onboarding
 
 import androidx.compose.ui.unit.dp
 
