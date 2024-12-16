@@ -4,6 +4,7 @@ import com.aditys.h_news.model.ItemResponse
 import com.aditys.h_news.model.NewsResponse
 import com.aditys.h_news.model.SearchResponse
 import com.aditys.h_news.model.UserResponse
+import kotlinx.coroutines.Job
 import retrofit2.http.Query
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -21,4 +22,7 @@ interface HackerNewsApi {
 
     @GET("search_by_date")
     suspend fun searchByDate(@Query("query") query: String): SearchResponse
+
+    @GET("jobs")
+    suspend fun getJobs(): List<Job>
 }

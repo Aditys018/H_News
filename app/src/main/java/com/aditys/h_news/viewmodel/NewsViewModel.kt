@@ -4,13 +4,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.aditys.h_news.model.ItemResponse
-import com.aditys.h_news.model.NewsItem
 import com.aditys.h_news.model.SearchResponse
 import com.aditys.h_news.model.UserResponse
 import com.aditys.h_news.repository.NewsRepository
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-
-
 
 class NewsViewModel : ViewModel() {
     private val repository = NewsRepository()
@@ -18,6 +16,7 @@ class NewsViewModel : ViewModel() {
     val item: MutableLiveData<ItemResponse> = MutableLiveData()
     val user: MutableLiveData<UserResponse> = MutableLiveData()
     val searchResults: MutableLiveData<SearchResponse> = MutableLiveData()
+    val jobs: MutableLiveData<List<Job>> = MutableLiveData()
 
     fun fetchItem(id: Int) {
         viewModelScope.launch {
@@ -44,6 +43,17 @@ class NewsViewModel : ViewModel() {
         viewModelScope.launch {
             val response = repository.searchByDate(query)
             searchResults.postValue(response)
+        }
+    }
+
+    fun fetchJobs() {
+        viewModelScope.launch {
+            try {
+                val jobList = repository.getJobs()
+                jobs.postValue(jobList)
+            } catch (e: Exception) {
+
+            }
         }
     }
 }
