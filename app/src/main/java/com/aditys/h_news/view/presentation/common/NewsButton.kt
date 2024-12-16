@@ -1,4 +1,4 @@
-package com.aditys.h_news.ui.presentation.common
+package com.aditys.h_news.view.presentation.common
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button

@@ -1,4 +1,4 @@
-package com.aditys.h_news.ui.presentation.onboarding
+package com.aditys.h_news.view.presentation.onboarding
 
 import androidx.annotation.DrawableRes
 import com.aditys.h_news.R

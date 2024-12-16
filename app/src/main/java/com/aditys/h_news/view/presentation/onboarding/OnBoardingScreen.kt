@@ -1,4 +1,4 @@
-package com.aditys.h_news.ui.presentation.onboarding
+package com.aditys.h_news.view.presentation.onboarding
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.pager.HorizontalPager
@@ -11,11 +11,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.aditys.h_news.ui.presentation.common.NewsTextButton
-import com.aditys.h_news.ui.presentation.onboarding.components.OnboardingPage
-import com.aditys.h_news.ui.presentation.onboarding.components.PageIndicator
-import com.aditys.h_news.ui.presentation.onboarding.dimentions.MediumPadding2
-import com.aditys.h_news.ui.presentation.onboarding.dimentions.PageIndicatorWidth
+import com.aditys.h_news.view.presentation.common.NewsTextButton
+import com.aditys.h_news.view.presentation.onboarding.components.OnboardingPage
+import com.aditys.h_news.view.presentation.onboarding.components.PageIndicator
+import com.aditys.h_news.view.presentation.onboarding.dimentions.MediumPadding2
+import com.aditys.h_news.view.presentation.onboarding.dimentions.PageIndicatorWidth
 import kotlinx.coroutines.launch
 
 @Composable
