@@ -1,14 +1,6 @@
 package com.aditys.h_news.ui.presentation.onboarding
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.navigationBarsPadding
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.runtime.Composable
@@ -18,6 +10,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.aditys.h_news.ui.presentation.common.NewsTextButton
 import com.aditys.h_news.ui.presentation.onboarding.components.OnboardingPage
 import com.aditys.h_news.ui.presentation.onboarding.components.PageIndicator
@@ -26,19 +19,19 @@ import com.aditys.h_news.ui.presentation.onboarding.dimentions.PageIndicatorWidt
 import kotlinx.coroutines.launch
 
 @Composable
-fun OnBoardingScreen(){
-    Column(modifier = Modifier.fillMaxSize()){
-        val pagerState = rememberPagerState (initialPage = 0){
+fun OnBoardingScreen(navController: NavController) {
+    Column(modifier = Modifier.fillMaxSize()) {
+        val pagerState = rememberPagerState(initialPage = 0) {
             pages.size
         }
 
-        val buttonState = remember{
+        val buttonState = remember {
             derivedStateOf {
-                when(pagerState.currentPage){
-                    0 -> listOf("" , "Next")
-                    1 -> listOf("Back" , "Next")
-                    2 -> listOf("Back" , "Get Started")
-                    else -> listOf("" , "")
+                when (pagerState.currentPage) {
+                    0 -> listOf("", "Next")
+                    1 -> listOf("Back", "Next")
+                    2 -> listOf("Back", "Get Started")
+                    else -> listOf("", "")
                 }
             }
         }
@@ -62,7 +55,6 @@ fun OnBoardingScreen(){
             )
 
             Row(verticalAlignment = Alignment.CenterVertically) {
-
                 val scope = rememberCoroutineScope()
                 if (buttonState.value[0].isNotEmpty()) {
                     NewsTextButton(
@@ -78,8 +70,8 @@ fun OnBoardingScreen(){
                     text = buttonState.value[1],
                     onClick = {
                         scope.launch {
-                            if (pagerState.currentPage == 3) {
-                                //navigate to home screen
+                            if (pagerState.currentPage == 2) {
+                                navController.navigate("news")
                             } else {
                                 pagerState.animateScrollToPage(
                                     page = pagerState.currentPage + 1
@@ -92,5 +84,4 @@ fun OnBoardingScreen(){
         }
         Spacer(modifier = Modifier.weight(0.3f))
     }
-
 }

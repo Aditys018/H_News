@@ -9,7 +9,11 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.ui.Modifier
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import com.aditys.h_news.ui.presentation.onboarding.OnBoardingScreen
+import com.aditys.h_news.view.NewsScreen
 import com.aditys.h_news.theme.H_NewsTheme
 
 class MainActivity : ComponentActivity() {
@@ -19,12 +23,14 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             H_NewsTheme {
+                val navController = rememberNavController()
                 Box(modifier = Modifier.background(color = MaterialTheme.colorScheme.background)) {
-                    OnBoardingScreen()
-
+                    NavHost(navController = navController, startDestination = "onboarding") {
+                        composable("onboarding") { OnBoardingScreen(navController) }
+                        composable("news") { NewsScreen() }
+                    }
                 }
             }
         }
     }
 }
-
