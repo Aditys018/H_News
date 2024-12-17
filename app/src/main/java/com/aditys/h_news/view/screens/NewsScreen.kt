@@ -1,4 +1,4 @@
-package com.aditys.h_news.view
+package com.aditys.h_news.view.screens
 
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items

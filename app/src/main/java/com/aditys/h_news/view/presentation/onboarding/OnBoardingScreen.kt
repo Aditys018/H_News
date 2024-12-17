@@ -19,7 +19,7 @@ import com.aditys.h_news.view.presentation.onboarding.dimentions.PageIndicatorWi
 import kotlinx.coroutines.launch
 
 @Composable
-fun OnBoardingScreen(navController: NavController) {
+fun OnBoardingScreen(navController: NavController, onGetStartedClick: () -> Unit) {
     Column(modifier = Modifier.fillMaxSize()) {
         val pagerState = rememberPagerState(initialPage = 0) {
             pages.size
@@ -35,9 +35,11 @@ fun OnBoardingScreen(navController: NavController) {
                 }
             }
         }
+
         HorizontalPager(state = pagerState) { index ->
             OnboardingPage(page = pages[index])
         }
+
         Spacer(modifier = Modifier.weight(1f))
 
         Row(
@@ -61,7 +63,7 @@ fun OnBoardingScreen(navController: NavController) {
                         text = buttonState.value[0],
                         onClick = {
                             scope.launch {
-                                pagerState.animateScrollToPage(page = pagerState.currentPage - 1)
+                                pagerState.animateScrollToPage(pagerState.currentPage - 1)
                             }
                         }
                     )
@@ -70,18 +72,24 @@ fun OnBoardingScreen(navController: NavController) {
                     text = buttonState.value[1],
                     onClick = {
                         scope.launch {
-                            if (pagerState.currentPage == 2) {
-                                navController.navigate("news")
+                            if (pagerState.currentPage == pages.lastIndex) {
+                                navController.navigate("news") {
+                                    popUpTo(navController.graph.startDestinationId) {
+                                        saveState = true
+                                    }
+                                    launchSingleTop = true
+                                    restoreState = true
+                                }
+                                onGetStartedClick()
                             } else {
-                                pagerState.animateScrollToPage(
-                                    page = pagerState.currentPage + 1
-                                )
+                                pagerState.animateScrollToPage(pagerState.currentPage + 1)
                             }
                         }
                     }
                 )
             }
         }
+
         Spacer(modifier = Modifier.weight(0.3f))
     }
 }
