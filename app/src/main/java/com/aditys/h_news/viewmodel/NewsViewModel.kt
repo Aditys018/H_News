@@ -6,12 +6,13 @@ import androidx.lifecycle.viewModelScope
 import com.aditys.h_news.model.ItemResponse
 import com.aditys.h_news.model.SearchResponse
 import com.aditys.h_news.model.UserResponse
+import com.aditys.h_news.repository.INewsRepository
 import com.aditys.h_news.repository.NewsRepository
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
 class NewsViewModel : ViewModel() {
-    private val repository = NewsRepository()
+    private val repository: INewsRepository = NewsRepository()
 
     val item: MutableLiveData<ItemResponse> = MutableLiveData()
     val user: MutableLiveData<UserResponse> = MutableLiveData()
@@ -55,5 +56,8 @@ class NewsViewModel : ViewModel() {
 
             }
         }
+    }
+    init {
+        search("jobs")
     }
 }
