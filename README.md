@@ -11,13 +11,20 @@
   </tr>
 </table>
 
-## Tech Stack
 
+## Tech Stack and Libraries
 - **Kotlin**: Primary programming language
 - **Android SDK**: Development framework
 - **Retrofit**: HTTP client for API calls
-- **Glide**: Image loading library
--**Architecture**: MVVM
+- **Gson**: JSON converter for Retrofit
+- **Coil**: Image loading library
+- **Compose Foundation**: UI framework
+- **Accompanist**: System UI controller
+- **Paging 3**: Pagination library
+- **Hilt**: Dependency injection
+- **Navigation Compose**: Navigation framework
+- **Coroutines**: Asynchronous programming
+- **Architecture**: MVVM
 
 ## Installation
 
@@ -53,5 +60,5 @@ Contributions are welcome! Please follow these steps to contribute:
 
 ## License
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
+This project is licensed under the GNU General Public License Version 3. See the [LICENSE](LICENSE) file for more details.
 
