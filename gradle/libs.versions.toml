@@ -29,6 +29,7 @@ roomKtx = "2.6.1"
 nav_version = "2.6.0"
 roomKtxVersion = "2.5.2"
 roomRuntime = "2.6.1"
+runtimeLivedata = "1.7.6"
 
 [libraries]
 accompanist-systemuicontroller = { module = "com.google.accompanist:accompanist-systemuicontroller", version.ref = "accompanistSystemuicontroller" }
@@ -70,6 +71,7 @@ androidx-paging-runtime = {module = "androidx.paging:paging-runtime"}
 androidx-room-runtime = {module = "androidx.room:room-runtime"}
 room-runtime = { module = "androidx.room:room-runtime" }
 androidx-navigation-compose = {module = "androidx.navigation:navigation-compose"}
+androidx-runtime-livedata = { group = "androidx.compose.runtime", name = "runtime-livedata", version.ref = "runtimeLivedata" }
 
 
 [plugins]
