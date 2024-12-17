@@ -1,10 +1,15 @@
 # H_News
 
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/ecf823e0-c5c9-4dd4-bf3c-02628e885d9f" alt="H_News">
-</p>
-
-H_News is an Android application built with Kotlin that provides the latest news articles from official HackerNews website in the application. It features a sleek and modern user interface, making it easy for users to stay updated with current events.
+<table>
+  <tr>
+    <td>
+      <img src="https://github.com/user-attachments/assets/ecf823e0-c5c9-4dd4-bf3c-02628e885d9f" alt="H_News" width="550" height="250">
+    </td>
+    <td>
+      H_News is an Android application built with Kotlin that provides the latest news articles from the official HackerNews website in the application. It features a sleek and modern user interface, making it easy for users to stay updated with current events.
+    </td>
+  </tr>
+</table>
 
 ## Tech Stack
 
@@ -50,8 +55,3 @@ Contributions are welcome! Please follow these steps to contribute:
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
 
-## Contact
-
-If you have any questions, feel free to contact the repository owner:
-
-- **GitHub:** [Aditys018](https://github.com/Aditys018)
