@@ -8,7 +8,7 @@ import com.aditys.h_news.model.SearchResponse
 import com.aditys.h_news.model.UserResponse
 import com.aditys.h_news.repository.INewsRepository
 import com.aditys.h_news.repository.NewsRepository
-import kotlinx.coroutines.Job
+import com.aditys.h_news.model.Job
 import kotlinx.coroutines.launch
 
 class NewsViewModel : ViewModel() {

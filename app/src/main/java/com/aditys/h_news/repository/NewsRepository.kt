@@ -1,10 +1,10 @@
 package com.aditys.h_news.repository
 
 import com.aditys.h_news.model.ItemResponse
+import com.aditys.h_news.model.Job
 import com.aditys.h_news.model.SearchResponse
 import com.aditys.h_news.model.UserResponse
 import com.aditys.h_news.network.RetrofitInstance
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 
@@ -38,4 +38,7 @@ class NewsRepository : INewsRepository {
             listOf(itemDeferred.await(), userDeferred.await(), searchDeferred.await())
         }
 
+    override suspend fun getAllItems(): List<ItemResponse> {
+        return RetrofitInstance.api.getAllItems()
+    }
 }

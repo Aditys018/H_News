@@ -77,6 +77,13 @@ dependencies {
     implementation (libs.androidx.room.ktx.v252)
     implementation (libs.navigation.compose) //Compose Navigation
     implementation (libs.kotlinx.coroutines.android)  // Coroutines for asynchronous programming
+
+    implementation(libs.androidx.material)
+    implementation(libs.androidx.navigation.navigation.compose)
+    implementation(libs.ui)
+    implementation(libs.ui.tooling)
+    implementation(libs.androidx.runtime.livedata.v105)
+
     
 
 }

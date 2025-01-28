@@ -20,6 +20,8 @@ kotlinxCoroutinesAndroid = "1.9.0"
 lifecycleRuntimeKtx = "2.8.7"
 activityCompose = "1.9.3"
 composeBom = "2024.04.01"
+material = "1.7.6"
+navigationCompose = "2.8.5"
 pagingCompose = "3.3.5"
 retrofit = "2.11.0"
 
@@ -30,6 +32,9 @@ nav_version = "2.6.0"
 roomKtxVersion = "2.5.2"
 roomRuntime = "2.6.1"
 runtimeLivedata = "1.7.6"
+runtimeLivedataVersion = "1.0.5"
+ui = "1.7.6"
+uiTooling = "1.7.6"
 
 [libraries]
 accompanist-systemuicontroller = { module = "com.google.accompanist:accompanist-systemuicontroller", version.ref = "accompanistSystemuicontroller" }
@@ -39,11 +44,14 @@ androidx-datastore-preferences = { module = "androidx.datastore:datastore-prefer
 androidx-foundation = { module = "androidx.compose.foundation:foundation", version.ref = "foundation" }
 androidx-hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hiltNavigationCompose" }
 androidx-hilt-navigation-compose-v100 = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hiltNavigationComposeVersion" }
+androidx-material = { module = "androidx.compose.material:material", version.ref = "material" }
+androidx-navigation-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
 androidx-paging-compose = { module = "androidx.paging:paging-compose", version.ref = "pagingCompose" }
 androidx-room-compiler = { module = "androidx.room:room-compiler" }
 androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "roomKtx" }
 androidx-room-ktx-v252 = { module = "androidx.room:room-ktx", version.ref = "roomKtxVersion" }
 androidx-room-room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomRuntime" }
+androidx-runtime-livedata-v105 = { module = "androidx.compose.runtime:runtime-livedata", version.ref = "runtimeLivedataVersion" }
 coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coilCompose" }
 converter-gson = { module = " com.squareup.retrofit2:converter-gson", version.ref = "converterGson" }
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hiltAndroid" }
@@ -72,6 +80,8 @@ androidx-room-runtime = {module = "androidx.room:room-runtime"}
 room-runtime = { module = "androidx.room:room-runtime" }
 androidx-navigation-compose = {module = "androidx.navigation:navigation-compose"}
 androidx-runtime-livedata = { group = "androidx.compose.runtime", name = "runtime-livedata", version.ref = "runtimeLivedata" }
+ui = { module = "androidx.compose.ui:ui", version.ref = "ui" }
+ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "uiTooling" }
 
 
 [plugins]

@@ -1,20 +1,18 @@
 package com.aditys.h_news.network
 
 import com.aditys.h_news.model.ItemResponse
-import com.aditys.h_news.model.NewsResponse
+import com.aditys.h_news.model.Job
 import com.aditys.h_news.model.SearchResponse
 import com.aditys.h_news.model.UserResponse
-import kotlinx.coroutines.Job
-import retrofit2.http.Query
 import retrofit2.http.GET
 import retrofit2.http.Path
-
+import retrofit2.http.Query
 
 interface HackerNewsApi {
-    @GET("items/{id}")
+    @GET("item/{id}")
     suspend fun getItem(@Path("id") id: Int): ItemResponse
 
-    @GET("users/{username}")
+    @GET("user/{username}")
     suspend fun getUser(@Path("username") username: String): UserResponse
 
     @GET("search")
@@ -25,4 +23,7 @@ interface HackerNewsApi {
 
     @GET("jobs")
     suspend fun getJobs(): List<Job>
+
+    @GET("all_items")
+    suspend fun getAllItems(): List<ItemResponse>
 }
