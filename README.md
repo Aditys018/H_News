@@ -6,6 +6,10 @@
 
 H_News is an Android application built with Kotlin that provides the latest news articles from various sources. It features a sleek and modern user interface, making it easy for users to stay updated with current events.
 
+# HackerNews API and UI Design
+
+- **API:** [HackerNews API](https://hn.algolia.com/api)  
+- **Figma UI Design:** [HackerNews UI Prototype](https://www.figma.com/proto/jIlTIRF8b8Iz3uSYln8bew/H_News?page-id=0%3A1&node-id=7-4416&viewport=561%2C371%2C0.29&t=98KiAz9ux80QNfh6-1&scaling=scale-down&content-scaling=fixed&starting-point-node-id=7%3A4416)
 
 
 ## Tech Stack and Libraries
