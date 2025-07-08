@@ -39,13 +39,12 @@ class MainActivity : ComponentActivity() {
                         startDestination = "onboarding",
                         modifier = Modifier.padding(innerPadding)
                     ) {
-                        composable("home") { NewsScreen() }
+                        composable("home") { HomeScreen() }
                         composable("search") { SearchScreen() }
                         composable("profile") { ProfileScreen(navController) }
                         composable("settings") { SettingsScreen(navController) }
                         composable("bookmarks") { BookmarksScreen() }
                         composable("jobs") { JobsScreen() }
-                        composable("news") { NewsScreen() }
                         composable("onboarding") {
                             OnBoardingScreen(navController) {
                                 showBottomBar = true

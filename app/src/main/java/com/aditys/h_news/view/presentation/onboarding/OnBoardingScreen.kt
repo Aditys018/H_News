@@ -73,7 +73,7 @@ fun OnBoardingScreen(navController: NavController, onGetStartedClick: () -> Unit
                     onClick = {
                         scope.launch {
                             if (pagerState.currentPage == pages.lastIndex) {
-                                navController.navigate("news") {
+                                navController.navigate("home") {
                                     popUpTo(navController.graph.startDestinationId) {
                                         saveState = true
                                     }

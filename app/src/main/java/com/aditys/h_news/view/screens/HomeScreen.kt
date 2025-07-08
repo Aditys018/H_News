@@ -1,9 +1,7 @@
 package com.aditys.h_news.view.screens
 
-
-
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
 
 @Composable
 fun HomeScreen() {
