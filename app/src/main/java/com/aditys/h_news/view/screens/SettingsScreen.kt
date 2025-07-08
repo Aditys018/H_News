@@ -8,27 +8,18 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 
 @Composable
-fun ProfileScreen(navController: NavController) {
-    Column(modifier = Modifier.padding(16.dp)) {
-        Text(text = "Profile", style = MaterialTheme.typography.headlineMedium)
-        Spacer(modifier = Modifier.height(32.dp))
-
-        Text(text = "Settings", style = MaterialTheme.typography.titleMedium)
-        Card(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 8.dp),
-            elevation = CardDefaults.cardElevation(2.dp)
-        ) {
-            Column(modifier = Modifier.padding(16.dp)) {
-                Text(text = "Account")
-                Text(text = "Notifications", modifier = Modifier.padding(top = 8.dp))
-            }
-        }
+fun SettingsScreen(navController: NavController) {
+    Column(modifier = Modifier.padding(start = 50.dp, end = 50.dp)) {
+        Text(
+            text = "Settings",
+            style = MaterialTheme.typography.headlineMedium,
+            modifier = Modifier.padding(top = 52.dp)
+        )
 
         Spacer(modifier = Modifier.height(32.dp))
 
         Text(text = "About", style = MaterialTheme.typography.titleMedium)
+
         Card(
             modifier = Modifier
                 .fillMaxWidth()
