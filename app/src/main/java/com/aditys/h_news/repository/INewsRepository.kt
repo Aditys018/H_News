@@ -1,9 +1,10 @@
 package com.aditys.h_news.repository
 
 import com.aditys.h_news.model.ItemResponse
-import com.aditys.h_news.model.Job
+import com.aditys.h_news.model.JobResponse
 import com.aditys.h_news.model.SearchResponse
 import com.aditys.h_news.model.UserResponse
+import com.aditys.h_news.model.Job
 
 interface INewsRepository {
     suspend fun getItem(id: Int): ItemResponse

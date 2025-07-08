@@ -26,7 +26,7 @@ class NewsRepository : INewsRepository {
     }
 
     override suspend fun getJobs(): List<Job> {
-        return RetrofitInstance.api.getJobs()
+        return RetrofitInstance.api.getJobs().hits
     }
 
     override suspend fun fetchConcurrentData(id: Int, username: String, query: String): List<Any> =
