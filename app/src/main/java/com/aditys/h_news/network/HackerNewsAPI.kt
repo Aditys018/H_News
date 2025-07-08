@@ -2,6 +2,7 @@ package com.aditys.h_news.network
 
 import com.aditys.h_news.model.ItemResponse
 import com.aditys.h_news.model.Job
+import com.aditys.h_news.model.JobResponse
 import com.aditys.h_news.model.SearchResponse
 import com.aditys.h_news.model.UserResponse
 import retrofit2.http.GET
@@ -21,8 +22,8 @@ interface HackerNewsApi {
     @GET("search_by_date")
     suspend fun searchByDate(@Query("query") query: String): SearchResponse
 
-    @GET("jobs")
-    suspend fun getJobs(): List<Job>
+    @GET("search_by_date")
+    suspend fun getJobs(@Query("tags") tags: String = "job"): JobResponse
 
     @GET("all_items")
     suspend fun getAllItems(): List<ItemResponse>
