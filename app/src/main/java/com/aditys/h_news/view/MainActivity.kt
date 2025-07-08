@@ -1,6 +1,6 @@
 package com.aditys.h_news.view
 
-import com.aditys.h_news.view.screens.ProfileScreen
+import com.aditys.h_news.view.screens.SettingsScreen
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -42,6 +42,7 @@ class MainActivity : ComponentActivity() {
                         composable("home") { NewsScreen() }
                         composable("search") { SearchScreen() }
                         composable("profile") { ProfileScreen(navController) }
+                        composable("settings") { SettingsScreen(navController) }
                         composable("bookmarks") { BookmarksScreen() }
                         composable("jobs") { JobsScreen() }
                         composable("news") { NewsScreen() }

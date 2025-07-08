@@ -1,6 +1,5 @@
 package com.aditys.h_news.view
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -24,9 +23,9 @@ import com.aditys.h_news.R
 fun BottomNavigationBar(navController: NavController) {
     val items = listOf(
         BottomNavItem.Home,
-        BottomNavItem.Profile,
         BottomNavItem.Search,
-        BottomNavItem.Jobs
+        BottomNavItem.Jobs ,
+        BottomNavItem.Settings
     )
     Box(
         modifier = Modifier
@@ -62,8 +61,8 @@ fun BottomNavigationBar(navController: NavController) {
 
 
 sealed class BottomNavItem(var title: String, var icon: Int, var route: String) {
-    object Home : BottomNavItem("Home", R.drawable.home_icon, "home")
-    object Profile : BottomNavItem("Profile", R.drawable.ic_user, "profile")
+    object Home : BottomNavItem("Home", R.drawable.house, "home")
     object Search : BottomNavItem("Search", R.drawable.ic_search, "search")
     object Jobs : BottomNavItem("Jobs", R.drawable.job, "jobs")
+    object Settings : BottomNavItem("Settings", R.drawable.settings_icon, "settings")
 }
