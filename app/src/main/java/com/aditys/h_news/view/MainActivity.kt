@@ -3,39 +3,64 @@ package com.aditys.h_news.view
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
+import androidx.core.view.WindowCompat
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.aditys.h_news.R
 import com.aditys.h_news.theme.H_NewsTheme
-import com.aditys.h_news.view.pages.*
+import com.aditys.h_news.view.presentation.onboarding.OnBoardingScreen
+import com.aditys.h_news.view.screens.*
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val splashScreen = installSplashScreen()
-        enableEdgeToEdge()
+
+
+        WindowCompat.setDecorFitsSystemWindows(window, false)
+
         setContent {
             H_NewsTheme {
                 val navController = rememberNavController()
+                var showBottomBar by remember { mutableStateOf(false) }
+                val items = listOf(
+                    BottomNavItem("Home", "home", R.drawable.house),
+                    BottomNavItem("Search", "search", R.drawable.search),
+                    BottomNavItem("Profile", "profile", R.drawable.person),
+                    BottomNavItem("Bookmarks", "bookmarks", R.drawable.bookmarks),
+                    BottomNavItem("Jobs", "jobs", R.drawable.job)
+                )
+
                 Scaffold(
-                    bottomBar = { BottomNavigationBar(navController = navController) }
+                    bottomBar = {
+                        if (showBottomBar) {
+                            BottomNavigationBar(items = items, navController = navController) {
+                                navController.navigate(it.route) {
+                                    popUpTo(navController.graph.startDestinationId) {
+                                        saveState = true
+                                    }
+                                    launchSingleTop = true
+                                    restoreState = true
+                                }
+                            }
+                        }
+                    }
                 ) { innerPadding ->
-                    Box(modifier = Modifier
-                        .background(color = MaterialTheme.colorScheme.background)
-                        .padding(innerPadding)) {
-                        NavHost(navController = navController, startDestination = "home") {
-                            composable("home") { HomePage() }
-                            composable("profile") { ProfilePage() }
-                            composable("search") { SearchPage() }
-                            composable("bookmarks") { BookmarksPage() }
+                    NavHost(navController = navController, startDestination = "onboarding", modifier = Modifier.padding(innerPadding)) {
+                        composable("home") { NewsScreen() }
+                        composable("search") { SearchScreen() }
+                        composable("profile") { ProfileScreen(navController) }
+                        composable("bookmarks") { BookmarksScreen() }
+                        composable("jobs") { JobsScreen() }
+                        composable("news") { NewsScreen() }
+                        composable("onboarding") {
+                            OnBoardingScreen(navController) {
+                                showBottomBar = true
+                            }
                         }
                     }
                 }
