@@ -47,6 +47,16 @@ class NewsViewModel : ViewModel() {
         }
     }
 
+    fun searchNews(query: String) {
+        viewModelScope.launch {
+            try {
+                val response = repository.search(query)
+                searchResults.postValue(response)
+            } catch (e: Exception) {
+            }
+        }
+    }
+
     fun fetchJobs() {
         viewModelScope.launch {
             try {
