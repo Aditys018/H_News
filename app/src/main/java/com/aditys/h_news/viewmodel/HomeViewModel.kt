@@ -8,6 +8,8 @@ import com.aditys.h_news.repository.NewsRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.util.*
 
 enum class NewsFilter { TRENDING, NEW, PAST, SHOW, JOBS }
 
@@ -62,7 +64,7 @@ class HomeViewModel(
     private fun fetchNew() {
         viewModelScope.launch {
             try {
-                val newList = repository.searchByDate("")
+                val newList = repository.searchByDate("story")
                 _uiState.value = _uiState.value.copy(
                     newsList = newList.hits,
                     jobsList = emptyList(),
@@ -118,4 +120,10 @@ class HomeViewModel(
             }
         }
     }
+}
+
+fun epochToDateString(epoch: Int): String {
+    val date = Date(epoch * 1000L)
+    val format = SimpleDateFormat("dd MMM yyyy, HH:mm", Locale.getDefault())
+    return format.format(date)
 }

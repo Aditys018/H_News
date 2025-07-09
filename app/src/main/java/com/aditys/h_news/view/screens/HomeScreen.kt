@@ -19,15 +19,26 @@ import com.aditys.h_news.model.SearchResult
 import com.aditys.h_news.model.Job
 import com.aditys.h_news.viewmodel.HomeViewModel
 import com.aditys.h_news.viewmodel.NewsFilter
+import java.text.SimpleDateFormat
+import java.util.*
+
+fun epochToDateString(epoch: Int): String {
+    val date = Date(epoch * 1000L)
+    val format = SimpleDateFormat("dd MMM yyyy, HH:mm", Locale.getDefault())
+    return format.format(date)
+}
 
 @Composable
-fun HomeScreen(viewModel: HomeViewModel = viewModel()) {
+fun HomeScreen(
+    viewModel: HomeViewModel = viewModel(),
+    onPostClick: (SearchResult) -> Unit = {}
+) {
     val uiState by viewModel.uiState.collectAsState()
 
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color(0xFF39343B))
+            .background(Color(0xFF1C1B1F))
             .verticalScroll(rememberScrollState())
             .padding(16.dp)
     ) {
@@ -40,12 +51,13 @@ fun HomeScreen(viewModel: HomeViewModel = viewModel()) {
         Button(
             onClick = { viewModel.onFilterSelected(NewsFilter.TRENDING) },
             modifier = Modifier.fillMaxWidth(),
+            shape = RoundedCornerShape(12.dp),
             colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFF4A261))
         ) {
             Text("Explore top trending", color = Color.Black, fontWeight = FontWeight.Bold)
         }
         Spacer(Modifier.height(16.dp))
-        Text("see what's happening", color = Color.White, fontWeight = FontWeight.Bold)
+        Text("See what's happening", color = Color.White, fontWeight = FontWeight.Bold)
         Spacer(Modifier.height(8.dp))
         FilterButtons(
             selected = uiState.selectedFilter,
@@ -59,7 +71,7 @@ fun HomeScreen(viewModel: HomeViewModel = viewModel()) {
         } else {
             when (uiState.selectedFilter) {
                 NewsFilter.JOBS -> JobsList(uiState.jobsList)
-                else -> NewsList(uiState.newsList)
+                else -> NewsList(uiState.newsList, onPostClick)
             }
         }
     }
@@ -128,26 +140,45 @@ fun FilterButtons(selected: NewsFilter, onSelected: (NewsFilter) -> Unit) {
 }
 
 @Composable
-fun NewsList(news: List<SearchResult>) {
+fun NewsList(news: List<SearchResult>, onPostClick: (SearchResult) -> Unit) {
     Column {
         news.forEach { item ->
-            NewsCard(item)
+            NewsCard(item, onClick = { onPostClick(item) })
             Spacer(Modifier.height(8.dp))
         }
     }
 }
 
 @Composable
-fun NewsCard(item: SearchResult) {
+fun NewsCard(item: SearchResult, onClick: () -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
             .background(Color(0xFF2D2832), RoundedCornerShape(8.dp))
             .padding(12.dp)
+            .clickable { onClick() }
     ) {
-        Text(item.title ?: "", color = Color.White, fontWeight = FontWeight.Bold)
+        // Show title or story_title or fallback
+        val heading = item.title?.takeIf { it.isNotBlank() }
+            ?: item.story_title?.takeIf { it.isNotBlank() }
+            ?: "No Title"
+        Text(heading, color = Color.White, fontWeight = FontWeight.Bold)
         Spacer(Modifier.height(4.dp))
         Text("by ${item.author ?: "unknown"}", color = Color(0xFFF4A261))
+        Spacer(Modifier.height(4.dp))
+        // Show story_text, or url, or fallback
+        val details = item.story_text?.takeIf { it.isNotBlank() }
+            ?: item.url?.takeIf { it.isNotBlank() }
+            ?: "No details available"
+        Text(details, color = Color.Gray)
+        Spacer(Modifier.height(4.dp))
+        // Date/time
+        item.created_at?.let {
+            Text("Posted: $it", color = Color.Gray, style = MaterialTheme.typography.bodySmall)
+        }
+        item.created_at_i?.let {
+            Text("Posted: ${epochToDateString(it)}", color = Color.Gray, style = MaterialTheme.typography.bodySmall)
+        }
         Spacer(Modifier.height(4.dp))
         Row {
             Text("${item.points ?: 0} points", color = Color(0xFFF4A261))
