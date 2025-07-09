@@ -15,17 +15,27 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.aditys.h_news.viewmodel.NewsViewModel
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.background
+import com.aditys.h_news.model.SearchResult
+import com.aditys.h_news.model.Job
+import com.google.gson.Gson
+import android.net.Uri
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SearchScreen(newsViewModel: NewsViewModel = viewModel()) {
+fun SearchScreen(
+    newsViewModel: NewsViewModel = viewModel(),
+    onPostClick: (SearchResult) -> Unit = {}
+) {
     var searchQuery by remember { mutableStateOf("") }
     val searchResults by newsViewModel.searchResults.observeAsState()
 
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .background(Color(0xFF1C1B1F))
             .padding(16.dp)
     ) {
         TextField(
@@ -38,7 +48,7 @@ fun SearchScreen(newsViewModel: NewsViewModel = viewModel()) {
                 .fillMaxWidth()
                 .padding(bottom = 16.dp)
                 .height(56.dp),
-            placeholder = { Text("Search news...") },
+            placeholder = { Text("Search news...", color = Color.Gray) },
             leadingIcon = {
                 Icon(
                     imageVector = Icons.Default.Search,
@@ -48,7 +58,9 @@ fun SearchScreen(newsViewModel: NewsViewModel = viewModel()) {
             },
             shape = RoundedCornerShape(28.dp),
             colors = TextFieldDefaults.textFieldColors(
-                containerColor = MaterialTheme.colorScheme.surface
+                containerColor = Color(0xFF2D2832),
+                focusedTextColor = Color.White,
+                unfocusedTextColor = Color.White
             ),
             singleLine = true
         )
@@ -62,7 +74,9 @@ fun SearchScreen(newsViewModel: NewsViewModel = viewModel()) {
                 items(items) { item ->
                     Card(
                         modifier = Modifier
-                            .fillMaxWidth(),
+                            .fillMaxWidth()
+                            .clickable { onPostClick(item) },
+                        colors = CardDefaults.cardColors(containerColor = Color(0xFF2D2832)),
                         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
                     ) {
                         Column(
@@ -70,13 +84,15 @@ fun SearchScreen(newsViewModel: NewsViewModel = viewModel()) {
                                 .padding(16.dp)
                         ) {
                             Text(
-                                text = item.title,
-                                style = MaterialTheme.typography.titleLarge
+                                text = item.title ?: "No Title",
+                                style = MaterialTheme.typography.titleLarge,
+                                color = Color.White
                             )
                             Spacer(modifier = Modifier.height(4.dp))
                             Text(
-                                text = item.author,
-                                style = MaterialTheme.typography.bodyMedium
+                                text = item.author ?: "Unknown",
+                                style = MaterialTheme.typography.bodyMedium,
+                                color = Color(0xFFF4A261)
                             )
                         }
                     }

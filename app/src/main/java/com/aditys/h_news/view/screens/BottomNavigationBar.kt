@@ -17,13 +17,13 @@ fun BottomNavigationBar(
         items.forEach { item ->
             val selected = item.route == backStackEntry.value?.destination?.route
             NavigationBarItem(
-                icon = { Icon(painterResource(id = item.icon), contentDescription = item.name) },
-                label = if (selected) { { Text(item.name) } } else { null },
+                icon = { Icon(painterResource(id = item.icon), contentDescription = item.title) },
+                label = if (selected) { { Text(item.title) } } else { null },
                 selected = selected,
                 alwaysShowLabel = false,
                 onClick = {
                     if (item.route == "home") {
-                        navController.navigate("news") {
+                        navController.navigate("home") {
                             popUpTo(navController.graph.startDestinationId) {
                                 saveState = true
                             }
