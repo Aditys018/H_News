@@ -10,6 +10,9 @@ import androidx.navigation.compose.rememberNavController
 import com.aditys.h_news.view.screens.*
 import com.aditys.h_news.R
 import com.aditys.h_news.view.screens.BottomNavItem
+import androidx.navigation.NavType
+import androidx.navigation.navArgument
+import android.net.Uri
 
 @Composable
 fun AppNavigation() {
@@ -41,10 +44,45 @@ fun AppNavigation() {
             startDestination = "home",
             modifier = Modifier.padding(innerPadding)
         ) {
-            composable("home") { HomeScreen(onPostClick = { /* handle post click */ }) }
-            composable("search") { SearchScreen(onPostClick = { /* handle post click */ }) }
-            composable("jobs") { JobsScreen(onJobClick = { /* handle job click */ }) }
+            composable("home") {
+                HomeScreen(onPostClick = { item ->
+                    navController.navigate(
+                        "newsDetail/${Uri.encode(item.title ?: "")}/${Uri.encode(item.author ?: "")}/${Uri.encode(item.story_text ?: "")}/${Uri.encode(item.url ?: "")}"
+                    )
+                })
+            }
+            composable("search") {
+                SearchScreen(onPostClick = { item ->
+                    navController.navigate(
+                        "newsDetail/${Uri.encode(item.title ?: "")}/${Uri.encode(item.author ?: "")}/${Uri.encode(item.story_text ?: "")}/${Uri.encode(item.url ?: "")}"
+                    )
+                })
+            }
+            composable("jobs") {
+                JobsScreen(onJobClick = { job ->
+                    navController.navigate(
+                        "newsDetail/${Uri.encode(job.title ?: "")}/${Uri.encode(job.author ?: "")}/${Uri.encode(job.created_at ?: "")}/${Uri.encode(job.url ?: "")}"
+                    )
+                })
+            }
             composable("settings") { SettingsScreen(navController) }
+            composable(
+                "newsDetail/{title}/{author}/{content}/{url}",
+                arguments = listOf(
+                    navArgument("title") { type = NavType.StringType },
+                    navArgument("author") { type = NavType.StringType },
+                    navArgument("content") { type = NavType.StringType },
+                    navArgument("url") { type = NavType.StringType }
+                )
+            ) { backStackEntry ->
+                NewsDetailScreen(
+                    title = backStackEntry.arguments?.getString("title") ?: "",
+                    author = backStackEntry.arguments?.getString("author") ?: "",
+                    content = backStackEntry.arguments?.getString("content") ?: "",
+                    url = backStackEntry.arguments?.getString("url"),
+                    onBack = { navController.popBackStack() }
+                )
+            }
             // Add other screens as needed
         }
     }
