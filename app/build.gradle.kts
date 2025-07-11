@@ -2,8 +2,8 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
-    id("kotlin-kapt")
-    id("com.google.dagger.hilt.android")
+    alias(libs.plugins.hilt)
+    alias(libs.plugins.ksp)
 }
 
 android {
@@ -62,11 +62,11 @@ dependencies {
     implementation(libs.paging.runtime) //Paging 3
     implementation(libs.androidx.paging.compose)
     implementation(libs.hilt.android) //hilt
-    kapt(libs.hilt.android.compiler)
     implementation(libs.androidx.hilt.navigation.compose)
+    ksp(libs.hilt.android.compiler)
     implementation(libs.androidx.room.room.runtime) //Room
-    kapt("androidx.room:room-compiler:2.6.1")
     implementation(libs.androidx.room.ktx)
+    ksp(libs.androidx.room.compiler)
     implementation(libs.navigation.compose) //Compose Navigation
     implementation(libs.kotlinx.coroutines.android)  // Coroutines for asynchronous programming
     implementation(libs.androidx.material)
