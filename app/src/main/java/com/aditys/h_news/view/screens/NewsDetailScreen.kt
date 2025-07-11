@@ -16,6 +16,11 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.statusBars
 import androidx.compose.foundation.layout.asPaddingValues
+import androidx.compose.foundation.text.ClickableText
+import androidx.compose.ui.text.AnnotatedString
+import android.content.Intent
+import android.net.Uri
+import androidx.compose.ui.platform.LocalContext
 
 @Composable
 fun NewsDetailScreen(
@@ -55,10 +60,18 @@ fun NewsDetailScreen(
         Spacer(Modifier.height(8.dp))
         Text("by $author", color = Color.Gray)
         Spacer(Modifier.height(8.dp))
-        if (!content.isNullOrBlank() && content != url) {
+        if (!content.isNullOrBlank() && content != "No content available") {
             Text(content, color = Color.White)
         } else if (!url.isNullOrBlank()) {
-            Text(url, color = Color(0xFF2196F3))
+            val context = LocalContext.current
+            ClickableText(
+                text = AnnotatedString("Read more at: $url"),
+                style = MaterialTheme.typography.bodyLarge.copy(color = Color(0xFF2196F3)),
+                onClick = {
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+                    context.startActivity(intent)
+                }
+            )
         } else {
             Text("No content available", color = Color.White)
         }
