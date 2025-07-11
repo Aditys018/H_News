@@ -64,7 +64,7 @@ fun JobItem(job: Job, onClick: () -> Unit) {
         Column(modifier = Modifier.padding(16.dp)) {
             Text(text = job.title ?: "", style = MaterialTheme.typography.titleMedium, color = Color.White)
             Text(text = "By: ${job.author ?: ""}", style = MaterialTheme.typography.bodyMedium, color = Color(0xFFF4A261))
-            Text(text = "Posted: ${job.created_at ?: ""}", style = MaterialTheme.typography.bodySmall, color = Color.Gray)
+            Text(text = "Posted: ${job.createdAt ?: ""}", style = MaterialTheme.typography.bodySmall, color = Color.Gray)
             job.url?.let {
                 Text(text = it, style = MaterialTheme.typography.bodySmall, color = Color(0xFF2196F3))
             }

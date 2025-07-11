@@ -9,7 +9,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
@@ -92,14 +91,14 @@ fun TrendingCard(item: SearchResult) {
         )
         Spacer(Modifier.height(4.dp))
         Text(
-            text = item.story_text ?: item.url ?: "",
+            text = item.storyText ?: item.url ?: "",
             color = Color.White
         )
         Spacer(Modifier.height(8.dp))
         Row {
             Text("${item.points ?: 0} points", color = Color(0xFFF4A261))
             Spacer(Modifier.width(16.dp))
-            Text("${item.num_comments ?: 0} comments", color = Color(0xFFF4A261))
+            Text("${item.numComments ?: 0} comments", color = Color(0xFFF4A261))
         }
     }
 }
@@ -160,30 +159,30 @@ fun NewsCard(item: SearchResult, onClick: () -> Unit) {
     ) {
         // Show title or story_title or fallback
         val heading = item.title?.takeIf { it.isNotBlank() }
-            ?: item.story_title?.takeIf { it.isNotBlank() }
+            ?: item.storyTitle?.takeIf { it.isNotBlank() }
             ?: "No Title"
         Text(heading, color = Color.White, fontWeight = FontWeight.Bold)
         Spacer(Modifier.height(4.dp))
         Text("by ${item.author ?: "unknown"}", color = Color(0xFFF4A261))
         Spacer(Modifier.height(4.dp))
         // Show story_text, or url, or fallback
-        val details = item.story_text?.takeIf { it.isNotBlank() }
+        val details = item.storyText?.takeIf { it.isNotBlank() }
             ?: item.url?.takeIf { it.isNotBlank() }
             ?: "No details available"
         Text(details, color = Color.Gray)
         Spacer(Modifier.height(4.dp))
         // Date/time
-        item.created_at?.let {
+        item.createdAt?.let {
             Text("Posted: $it", color = Color.Gray, style = MaterialTheme.typography.bodySmall)
         }
-        item.created_at_i?.let {
+        item.createdAtI?.let {
             Text("Posted: ${epochToDateString(it)}", color = Color.Gray, style = MaterialTheme.typography.bodySmall)
         }
         Spacer(Modifier.height(4.dp))
         Row {
             Text("${item.points ?: 0} points", color = Color(0xFFF4A261))
             Spacer(Modifier.width(16.dp))
-            Text("${item.num_comments ?: 0} comments", color = Color(0xFFF4A261))
+            Text("${item.numComments ?: 0} comments", color = Color(0xFFF4A261))
         }
     }
 }

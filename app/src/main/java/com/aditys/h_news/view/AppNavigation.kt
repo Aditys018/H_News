@@ -8,7 +8,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.aditys.h_news.view.screens.*
-import com.aditys.h_news.R
 import com.aditys.h_news.view.screens.BottomNavItem
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
@@ -47,21 +46,21 @@ fun AppNavigation() {
             composable("home") {
                 HomeScreen(onPostClick = { item ->
                     navController.navigate(
-                        "newsDetail/${Uri.encode(item.title ?: "")}/${Uri.encode(item.author ?: "")}/${Uri.encode(item.story_text ?: "")}/${Uri.encode(item.url ?: "")}"
+                        "newsDetail/${Uri.encode(item.title ?: "")}/${Uri.encode(item.author ?: "")}/${Uri.encode(item.storyText ?: "")}/${Uri.encode(item.url ?: "")}"
                     )
                 })
             }
             composable("search") {
                 SearchScreen(onPostClick = { item ->
                     navController.navigate(
-                        "newsDetail/${Uri.encode(item.title ?: "")}/${Uri.encode(item.author ?: "")}/${Uri.encode(item.story_text ?: "")}/${Uri.encode(item.url ?: "")}"
+                        "newsDetail/${Uri.encode(item.title ?: "")}/${Uri.encode(item.author ?: "")}/${Uri.encode(item.storyText ?: "")}/${Uri.encode(item.url ?: "")}"
                     )
                 })
             }
             composable("jobs") {
                 JobsScreen(onJobClick = { job ->
                     navController.navigate(
-                        "newsDetail/${Uri.encode(job.title ?: "")}/${Uri.encode(job.author ?: "")}/${Uri.encode(job.created_at ?: "")}/${Uri.encode(job.url ?: "")}"
+                        "newsDetail/${Uri.encode(job.title ?: "")}/${Uri.encode(job.author ?: "")}/${Uri.encode(job.createdAt ?: "")}/${Uri.encode(job.url ?: "")}"
                     )
                 })
             }

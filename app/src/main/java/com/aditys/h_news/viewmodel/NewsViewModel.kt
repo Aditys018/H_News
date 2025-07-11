@@ -67,6 +67,7 @@ class NewsViewModel : ViewModel() {
             }
         }
     }
+
     init {
         search("jobs")
     }
