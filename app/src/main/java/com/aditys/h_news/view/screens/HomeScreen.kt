@@ -24,6 +24,11 @@ import java.util.*
 import androidx.navigation.NavController
 import kotlinx.coroutines.launch
 import com.aditys.h_news.model.ItemResponse
+import androidx.compose.foundation.text.ClickableText
+import androidx.compose.ui.text.AnnotatedString
+import android.content.Intent
+import android.net.Uri
+import androidx.compose.ui.platform.LocalContext
 
 fun epochToDateString(epoch: Int): String {
     val date = Date(epoch * 1000L)
@@ -40,6 +45,23 @@ fun HomeScreen(
     val uiState by viewModel.uiState.collectAsState()
     val coroutineScope = rememberCoroutineScope()
 
+    // Find the most upvoted post of the current month
+    val calendar = Calendar.getInstance()
+    val currentMonth = calendar.get(Calendar.MONTH)
+    val currentYear = calendar.get(Calendar.YEAR)
+
+    val trending2024 = uiState.newsList
+        .filter { item ->
+            item.created_at_i?.let {
+                val cal = Calendar.getInstance().apply { timeInMillis = it * 1000L }
+                cal.get(Calendar.YEAR) == 2024
+            } ?: false
+        }
+        .maxByOrNull { it.points ?: 0 }
+
+    val trendingPost = trending2024
+        ?: uiState.newsList.maxByOrNull { it.points ?: 0 }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -47,12 +69,28 @@ fun HomeScreen(
             .verticalScroll(rememberScrollState())
             .padding(16.dp)
     ) {
-        Text("Trending Today", color = Color.White, fontWeight = FontWeight.Bold)
-        Spacer(Modifier.height(8.dp))
-        uiState.trending?.let {
-            TrendingCard(it)
+        if (uiState.selectedFilter == NewsFilter.TRENDING) {
+            Text("Most Trending", color = Color.White, fontWeight = FontWeight.Bold)
+            Spacer(Modifier.height(8.dp))
+            trendingPost?.let { post ->
+                Box(modifier = Modifier.clickable {
+                    val id = post.objectID?.toIntOrNull() ?: return@clickable
+                    coroutineScope.launch {
+                        val fullItem = viewModel.fetchFullNewsItem(id)
+                        navController.navigate(
+                            "newsDetail/" +
+                            "${android.net.Uri.encode(fullItem?.title ?: post.title ?: "")}/" +
+                            "${android.net.Uri.encode(fullItem?.author ?: post.author ?: "")}/" +
+                            "${android.net.Uri.encode(fullItem?.text ?: "No content available")}/" +
+                            "${android.net.Uri.encode(fullItem?.url ?: post.url ?: "")}"
+                        )
+                    }
+                }) {
+                    TrendingCard(post)
+                }
+            }
+            Spacer(Modifier.height(8.dp))
         }
-        Spacer(Modifier.height(8.dp))
         Button(
             onClick = { viewModel.onFilterSelected(NewsFilter.TRENDING) },
             modifier = Modifier.fillMaxWidth(),
@@ -76,6 +114,24 @@ fun HomeScreen(
         } else {
             when (uiState.selectedFilter) {
                 NewsFilter.JOBS -> JobsList(uiState.jobsList)
+                NewsFilter.PAST -> {
+                    val sortedNews = uiState.newsList.sortedByDescending { item ->
+                        item.created_at_i ?: 0
+                    }
+                    NewsList(sortedNews, onPostClick = { item ->
+                        val id = item.objectID?.toIntOrNull() ?: return@NewsList
+                        coroutineScope.launch {
+                            val fullItem = viewModel.fetchFullNewsItem(id)
+                            navController.navigate(
+                                "newsDetail/" +
+                                "${android.net.Uri.encode(fullItem?.title ?: item.title ?: "")}/" +
+                                "${android.net.Uri.encode(fullItem?.author ?: item.author ?: "")}/" +
+                                "${android.net.Uri.encode(fullItem?.text ?: "No content available")}/" +
+                                "${android.net.Uri.encode(fullItem?.url ?: item.url ?: "")}"
+                            )
+                        }
+                    })
+                }
                 else -> NewsList(uiState.newsList, onPostClick = { item ->
                     val id = item.objectID?.toIntOrNull() ?: return@NewsList
                     coroutineScope.launch {
@@ -207,6 +263,7 @@ fun NewsCard(item: SearchResult, onClick: () -> Unit) {
 
 @Composable
 fun JobsList(jobs: List<Job>) {
+    val context = LocalContext.current
     Column {
         jobs.forEach { job ->
             Column(
@@ -219,7 +276,16 @@ fun JobsList(jobs: List<Job>) {
                 Spacer(Modifier.height(4.dp))
                 Text(job.author ?: "", color = Color(0xFFF4A261))
                 Spacer(Modifier.height(4.dp))
-                Text(job.url ?: "", color = Color(0xFFF4A261))
+                job.url?.let {
+                    ClickableText(
+                        text = AnnotatedString(it),
+                        style = MaterialTheme.typography.bodySmall.copy(color = Color(0xFFF4A261)),
+                        onClick = { _ ->
+                            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(it))
+                            context.startActivity(intent)
+                        }
+                    )
+                }
             }
             Spacer(Modifier.height(8.dp))
         }
