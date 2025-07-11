@@ -45,11 +45,14 @@ fun AppNavigation() {
             modifier = Modifier.padding(innerPadding)
         ) {
             composable("home") {
-                HomeScreen(onPostClick = { item ->
-                    navController.navigate(
-                        "newsDetail/${Uri.encode(item.title ?: "")}/${Uri.encode(item.author ?: "")}/${Uri.encode(item.story_text ?: "")}/${Uri.encode(item.url ?: "")}"
-                    )
-                })
+                HomeScreen(
+                    onPostClick = { item ->
+                        navController.navigate(
+                            "newsDetail/${Uri.encode(item.title ?: "")}/${Uri.encode(item.author ?: "")}/${Uri.encode(item.story_text ?: "")}/${Uri.encode(item.url ?: "")}"
+                        )
+                    },
+                    navController = navController
+                )
             }
             composable("search") {
                 SearchScreen(onPostClick = { item ->

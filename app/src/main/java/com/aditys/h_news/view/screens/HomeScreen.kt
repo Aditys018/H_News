@@ -21,6 +21,9 @@ import com.aditys.h_news.viewmodel.HomeViewModel
 import com.aditys.h_news.viewmodel.NewsFilter
 import java.text.SimpleDateFormat
 import java.util.*
+import androidx.navigation.NavController
+import kotlinx.coroutines.launch
+import com.aditys.h_news.model.ItemResponse
 
 fun epochToDateString(epoch: Int): String {
     val date = Date(epoch * 1000L)
@@ -31,9 +34,11 @@ fun epochToDateString(epoch: Int): String {
 @Composable
 fun HomeScreen(
     viewModel: HomeViewModel = viewModel(),
-    onPostClick: (SearchResult) -> Unit = {}
+    onPostClick: (SearchResult) -> Unit = {},
+    navController: NavController
 ) {
     val uiState by viewModel.uiState.collectAsState()
+    val coroutineScope = rememberCoroutineScope()
 
     Column(
         modifier = Modifier
@@ -71,7 +76,19 @@ fun HomeScreen(
         } else {
             when (uiState.selectedFilter) {
                 NewsFilter.JOBS -> JobsList(uiState.jobsList)
-                else -> NewsList(uiState.newsList, onPostClick)
+                else -> NewsList(uiState.newsList, onPostClick = { item ->
+                    val id = item.objectID?.toIntOrNull() ?: return@NewsList
+                    coroutineScope.launch {
+                        val fullItem = viewModel.fetchFullNewsItem(id)
+                        navController.navigate(
+                            "newsDetail/" +
+                            "${android.net.Uri.encode(fullItem?.title ?: item.title ?: "")}/" +
+                            "${android.net.Uri.encode(fullItem?.author ?: item.author ?: "")}/" +
+                            "${android.net.Uri.encode(fullItem?.text ?: "No content available")}/" +
+                            "${android.net.Uri.encode(fullItem?.url ?: item.url ?: "")}"
+                        )
+                    }
+                })
             }
         }
     }

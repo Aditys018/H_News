@@ -13,6 +13,6 @@ data class SearchResult(
     val created_at: String?,
     val created_at_i: Int?,
     val points: Int?,
-    val num_comments: Int?
-    
+    val num_comments: Int?,
+    val objectID: String
 )

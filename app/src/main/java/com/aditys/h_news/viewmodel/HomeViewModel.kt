@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
+import com.aditys.h_news.model.ItemResponse
 
 enum class NewsFilter { TRENDING, NEW, PAST, SHOW, JOBS }
 
@@ -118,6 +119,14 @@ class HomeViewModel(
             } catch (e: Exception) {
                 _uiState.value = _uiState.value.copy(error = e.message, isLoading = false)
             }
+        }
+    }
+
+    suspend fun fetchFullNewsItem(id: Int): ItemResponse? {
+        return try {
+            repository.getItem(id)
+        } catch (e: Exception) {
+            null
         }
     }
 }
