@@ -183,12 +183,12 @@ fun NewsCard(item: SearchResult, onClick: () -> Unit) {
         Spacer(Modifier.height(4.dp))
         Text("by ${item.author ?: "unknown"}", color = Color(0xFFF4A261))
         Spacer(Modifier.height(4.dp))
-        // Show story_text, or url, or fallback
+        // Show story_text only if available (do not show fallback)
         val details = item.story_text?.takeIf { it.isNotBlank() }
-            ?: item.url?.takeIf { it.isNotBlank() }
-            ?: "No details available"
-        Text(details, color = Color.Gray)
-        Spacer(Modifier.height(4.dp))
+        if (!details.isNullOrBlank()) {
+            Text(details, color = Color.Gray)
+            Spacer(Modifier.height(4.dp))
+        }
         // Date/time
         item.created_at?.let {
             Text("Posted: $it", color = Color.Gray, style = MaterialTheme.typography.bodySmall)
