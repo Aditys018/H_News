@@ -4,12 +4,11 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.core.view.WindowCompat
-import android.os.Build
-import android.view.WindowInsetsController
-import androidx.compose.ui.graphics.Color
 import androidx.core.view.WindowInsetsControllerCompat
 import com.aditys.h_news.theme.H_NewsTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,7 +20,8 @@ class MainActivity : ComponentActivity() {
         window.statusBarColor = android.graphics.Color.TRANSPARENT
 
         // Optional: Set light or dark icons for the status bar
-        WindowInsetsControllerCompat(window, window.decorView).isAppearanceLightStatusBars = false // false = white icons
+        WindowInsetsControllerCompat(window, window.decorView).isAppearanceLightStatusBars =
+            false // false = white icons
 
         setContent {
             H_NewsTheme {

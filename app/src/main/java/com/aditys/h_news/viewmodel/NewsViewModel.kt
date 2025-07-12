@@ -3,17 +3,21 @@ package com.aditys.h_news.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.aditys.h_news.data.NewsRepository
 import com.aditys.h_news.model.ItemResponse
 import com.aditys.h_news.model.Job
 import com.aditys.h_news.model.SearchResponse
 import com.aditys.h_news.model.UserResponse
-import com.aditys.h_news.repository.INewsRepository
-import com.aditys.h_news.repository.NewsRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class NewsViewModel : ViewModel() {
-    private val repository: INewsRepository = NewsRepository()
-
+@HiltViewModel
+class NewsViewModel
+@Inject
+constructor(
+    private val repository: NewsRepository
+) : ViewModel() {
     val item: MutableLiveData<ItemResponse> = MutableLiveData()
     val user: MutableLiveData<UserResponse> = MutableLiveData()
     val searchResults: MutableLiveData<SearchResponse> = MutableLiveData()
