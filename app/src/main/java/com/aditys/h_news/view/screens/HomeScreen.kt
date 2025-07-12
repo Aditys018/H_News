@@ -26,6 +26,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
@@ -40,7 +41,9 @@ import com.aditys.h_news.viewmodel.HomeViewModel
 import com.aditys.h_news.viewmodel.NewsFilter
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Calendar
+import java.util.Date
+import java.util.Locale
 
 fun epochToDateString(epoch: Int): String {
     val date = Date(epoch * 1000L)
@@ -64,7 +67,7 @@ fun HomeScreen(
 
     val trending2024 = uiState.newsList
         .filter { item ->
-            item.created_at_i?.let {
+            item.createdAtI?.let {
                 val cal = Calendar.getInstance().apply { timeInMillis = it * 1000L }
                 cal.get(Calendar.YEAR) == 2024
             } ?: false
@@ -128,7 +131,7 @@ fun HomeScreen(
                 NewsFilter.JOBS -> JobsList(uiState.jobsList)
                 NewsFilter.PAST -> {
                     val sortedNews = uiState.newsList.sortedByDescending { item ->
-                        item.created_at_i ?: 0
+                        item.createdAtI ?: 0
                     }
                     NewsList(sortedNews, onPostClick = { item ->
                         val id = item.objectID?.toIntOrNull() ?: return@NewsList
@@ -151,10 +154,10 @@ fun HomeScreen(
                         val fullItem = viewModel.fetchFullNewsItem(id)
                         navController.navigate(
                             "newsDetail/" +
-                                    "${android.net.Uri.encode(fullItem?.title ?: item.title ?: "")}/" +
-                                    "${android.net.Uri.encode(fullItem?.author ?: item.author ?: "")}/" +
-                                    "${android.net.Uri.encode(fullItem?.text ?: "No content available")}/" +
-                                    "${android.net.Uri.encode(fullItem?.url ?: item.url ?: "")}"
+                                    "${Uri.encode(fullItem?.title ?: item.title ?: "")}/" +
+                                    "${Uri.encode(fullItem?.author ?: item.author ?: "")}/" +
+                                    "${Uri.encode(fullItem?.text ?: "No content available")}/" +
+                                    "${Uri.encode(fullItem?.url ?: item.url ?: "")}"
                         )
                     }
                 })
@@ -253,7 +256,7 @@ fun NewsCard(item: SearchResult, onClick: () -> Unit) {
         Text("by ${item.author ?: "unknown"}", color = Color(0xFFF4A261))
         Spacer(Modifier.height(4.dp))
         // Show story_text only if available (do not show fallback)
-        val details = item.story_text?.takeIf { it.isNotBlank() }
+        val details = item.storyText?.takeIf { it.isNotBlank() }
         if (!details.isNullOrBlank()) {
             Text(details, color = Color.Gray)
             Spacer(Modifier.height(4.dp))
