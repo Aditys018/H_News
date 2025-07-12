@@ -44,23 +44,38 @@ fun AppNavigation() {
             modifier = Modifier.padding(innerPadding)
         ) {
             composable("home") {
-                HomeScreen(onPostClick = { item ->
-                    navController.navigate(
-                        "newsDetail/${Uri.encode(item.title ?: "")}/${Uri.encode(item.author ?: "")}/${Uri.encode(item.storyText ?: "")}/${Uri.encode(item.url ?: "")}"
-                    )
-                })
+                HomeScreen(
+                    onPostClick = { item ->
+                        navController.navigate(
+                            "newsDetail/${Uri.encode(item.title ?: "")}/${Uri.encode(item.author ?: "")}/${
+                                Uri.encode(
+                                    item.story_text ?: ""
+                                )
+                            }/${Uri.encode(item.url ?: "")}"
+                        )
+                    },
+                    navController = navController
+                )
             }
             composable("search") {
                 SearchScreen(onPostClick = { item ->
                     navController.navigate(
-                        "newsDetail/${Uri.encode(item.title ?: "")}/${Uri.encode(item.author ?: "")}/${Uri.encode(item.storyText ?: "")}/${Uri.encode(item.url ?: "")}"
+                        "newsDetail/${Uri.encode(item.title ?: "")}/${Uri.encode(item.author ?: "")}/${
+                            Uri.encode(
+                                item.storyText ?: ""
+                            )
+                        }/${Uri.encode(item.url ?: "")}"
                     )
                 })
             }
             composable("jobs") {
                 JobsScreen(onJobClick = { job ->
                     navController.navigate(
-                        "newsDetail/${Uri.encode(job.title ?: "")}/${Uri.encode(job.author ?: "")}/${Uri.encode(job.createdAt ?: "")}/${Uri.encode(job.url ?: "")}"
+                        "newsDetail/${Uri.encode(job.title ?: "")}/${Uri.encode(job.author ?: "")}/${
+                            Uri.encode(
+                                job.createdAt ?: ""
+                            )
+                        }/${Uri.encode(job.url ?: "")}"
                     )
                 })
             }

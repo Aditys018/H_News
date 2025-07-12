@@ -10,6 +10,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
+import java.util.*
+import com.aditys.h_news.model.ItemResponse
 import java.util.Date
 import java.util.Locale
 import javax.inject.Inject
@@ -125,6 +127,14 @@ constructor(
             } catch (e: Exception) {
                 _uiState.value = _uiState.value.copy(error = e.message, isLoading = false)
             }
+        }
+    }
+
+    suspend fun fetchFullNewsItem(id: Int): ItemResponse? {
+        return try {
+            repository.getItem(id)
+        } catch (e: Exception) {
+            null
         }
     }
 }

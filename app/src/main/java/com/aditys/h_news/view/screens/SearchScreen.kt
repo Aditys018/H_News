@@ -36,6 +36,15 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.aditys.h_news.model.SearchResult
 import com.aditys.h_news.viewmodel.NewsViewModel
+import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.background
+import com.aditys.h_news.model.SearchResult
+import com.aditys.h_news.model.Job
+import com.google.gson.Gson
+import android.net.Uri
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -53,31 +62,35 @@ fun SearchScreen(
             .background(Color(0xFF1C1B1F))
             .padding(16.dp)
     ) {
-        TextField(
+        OutlinedTextField(
             value = searchQuery,
             onValueChange = {
                 searchQuery = it
                 newsViewModel.searchNews(it)
             },
+            label = { Text("Search news...", color = Color.White) },
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(bottom = 16.dp)
-                .height(56.dp),
-            placeholder = { Text("Search news...", color = Color.Gray) },
+                .padding(bottom = 16.dp),
+            singleLine = true,
+            textStyle = MaterialTheme.typography.bodyLarge.copy(color = Color.White),
             leadingIcon = {
                 Icon(
                     imageVector = Icons.Default.Search,
                     contentDescription = "Search Icon",
-                    tint = Color.Gray
+                    tint = Color.White
                 )
             },
-            shape = RoundedCornerShape(28.dp),
-            colors = TextFieldDefaults.textFieldColors(
-                containerColor = Color(0xFF2D2832),
-                focusedTextColor = Color.White,
-                unfocusedTextColor = Color.White
-            ),
-            singleLine = true
+            colors = OutlinedTextFieldDefaults.colors(
+                focusedBorderColor = Color(0xFFF4A261),
+                unfocusedBorderColor = Color(0xFFF4A261),
+                cursorColor = Color.White,
+                focusedLabelColor = Color.White,
+                unfocusedLabelColor = Color.White,
+                focusedContainerColor = Color.Transparent,
+                unfocusedContainerColor = Color.Transparent,
+                disabledContainerColor = Color.Transparent
+            )
         )
         LazyColumn(
             modifier = Modifier

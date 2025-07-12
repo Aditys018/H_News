@@ -22,6 +22,7 @@ data class SearchResult(
     @SerializedName("created_at_i")
     val createdAtI: Int?,
     val points: Int?,
+    val objectID: String,
     @SerializedName("num_comments")
     val numComments: Int?
 )
