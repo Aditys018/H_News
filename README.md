@@ -1,7 +1,7 @@
 # H_News
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/ecf823e0-c5c9-4dd4-bf3c-02628e885d9f" alt="H_News" width="250" height="250" style="margin-right: 10px;">
+  <img src="https://github.com/user-attachments/assets/dd2b12c5-f829-4587-86a0-d1c4867a6cd8" alt="H_News" width="250" height="250" style="margin-right: 10px;">
 </p>
 
 H_News is an Android application built with Kotlin that provides the latest news articles from various sources. It features a sleek and modern user interface, making it easy for users to stay updated with current events.
