@@ -1,18 +1,28 @@
 package com.aditys.h_news.model
 
+import androidx.annotation.Keep
+import com.google.gson.annotations.SerializedName
+
+@Keep
 data class SearchResponse(
     val hits: List<SearchResult>
 )
 
+@Keep
 data class SearchResult(
     val title: String?,
-    val story_title: String?,
-    val story_text: String?,
+    @SerializedName("story_title")
+    val storyTitle: String?,
+    @SerializedName("story_text")
+    val storyText: String?,
     val url: String?,
     val author: String?,
-    val created_at: String?,
-    val created_at_i: Int?,
+    @SerializedName("created_at")
+    val createdAt: String?,
+    @SerializedName("created_at_i")
+    val createdAtI: Int?,
     val points: Int?,
-    val num_comments: Int?,
-    val objectID: String
+    val objectID: String,
+    @SerializedName("num_comments")
+    val numComments: Int?
 )

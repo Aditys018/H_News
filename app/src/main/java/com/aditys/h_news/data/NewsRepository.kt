@@ -1,12 +1,11 @@
-package com.aditys.h_news.repository
+package com.aditys.h_news.data
 
 import com.aditys.h_news.model.ItemResponse
-import com.aditys.h_news.model.JobResponse
+import com.aditys.h_news.model.Job
 import com.aditys.h_news.model.SearchResponse
 import com.aditys.h_news.model.UserResponse
-import com.aditys.h_news.model.Job
 
-interface INewsRepository {
+interface NewsRepository {
     suspend fun getItem(id: Int): ItemResponse
     suspend fun getUser(username: String): UserResponse
     suspend fun search(query: String): SearchResponse
