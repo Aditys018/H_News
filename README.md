@@ -7,12 +7,6 @@
 H_News is an Android application built with Kotlin using the official HackerNews API that provides the latest news articles from various sources. It features a sleek and modern user interface, making it easy for users to stay updated with current events.
 
 
-
-
-
-
-
-
 # App Image Gallery
 
 <table>
@@ -92,5 +86,6 @@ Contributions are welcome! Please follow these steps to contribute:
 
 ## License
 
-This project is licensed under the GNU General Public License Version 3. See the [LICENSE](LICENSE) file for more details.
+- This project is licensed under the GNU General Public License Version 3. See the [LICENSE](LICENSE) file for more details.
+- [Privacy Policy](https://aditys018.github.io/H_News_privacy_policy/)
 
