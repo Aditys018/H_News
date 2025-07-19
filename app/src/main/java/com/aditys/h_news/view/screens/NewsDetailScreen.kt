@@ -68,8 +68,12 @@ fun NewsDetailScreen(
                 text = AnnotatedString("Read more at: $url"),
                 style = MaterialTheme.typography.bodyLarge.copy(color = Color(0xFF2196F3)),
                 onClick = {
-                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
-                    context.startActivity(intent)
+                    if (url.startsWith("https://")) {
+                        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+                        context.startActivity(intent)
+                    } else {
+                        android.widget.Toast.makeText(context, "Warning: Not a secure (HTTPS) link. Link will not be opened.", android.widget.Toast.LENGTH_SHORT).show()
+                    }
                 }
             )
         } else {

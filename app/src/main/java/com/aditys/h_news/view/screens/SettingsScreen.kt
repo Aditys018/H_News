@@ -61,8 +61,13 @@ fun SettingsScreen(navController: NavController) {
                 text = AnnotatedString("View Source code at GitHub"),
                 style = MaterialTheme.typography.bodyLarge.copy(color = Color(0xFFF4A261), fontSize = MaterialTheme.typography.titleMedium.fontSize),
                 onClick = {
-                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/Aditys018/H_News"))
-                    context.startActivity(intent)
+                    val url = "https://github.com/Aditys018/H_News"
+                    if (url.startsWith("https://")) {
+                        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+                        context.startActivity(intent)
+                    } else {
+                        android.widget.Toast.makeText(context, "Warning: Not a secure (HTTPS) link. Link will not be opened.", android.widget.Toast.LENGTH_SHORT).show()
+                    }
                 }
             )
             Spacer(modifier = Modifier.height(16.dp))
@@ -70,9 +75,13 @@ fun SettingsScreen(navController: NavController) {
                 text = AnnotatedString("View Privacy policy"),
                 style = MaterialTheme.typography.bodyLarge.copy(color = Color(0xFFF4A261), fontSize = MaterialTheme.typography.titleMedium.fontSize),
                 onClick = {
-                    // Show privacy policy in browser or dialog; here, open a simple web page or show dialog
-                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/Aditys018/H_News#privacy-policy"))
-                    context.startActivity(intent)
+                    val url = "https://github.com/Aditys018/H_News#privacy-policy"
+                    if (url.startsWith("https://")) {
+                        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+                        context.startActivity(intent)
+                    } else {
+                        android.widget.Toast.makeText(context, "Warning: Not a secure (HTTPS) link. Link will not be opened.", android.widget.Toast.LENGTH_SHORT).show()
+                    }
                 }
             )
         }
@@ -96,8 +105,13 @@ fun SettingsScreen(navController: NavController) {
                 modifier = Modifier
                     .size(28.dp)
                     .clickable {
-                        val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.linkedin.com/in/aditirshinde/"))
-                        context.startActivity(intent)
+                        val url = "https://www.linkedin.com/in/aditirshinde/"
+                        if (url.startsWith("https://")) {
+                            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+                            context.startActivity(intent)
+                        } else {
+                            android.widget.Toast.makeText(context, "Warning: Not a secure (HTTPS) link. Link will not be opened.", android.widget.Toast.LENGTH_SHORT).show()
+                        }
                     }
             )
             Spacer(modifier = Modifier.width(16.dp))
@@ -122,8 +136,13 @@ fun SettingsScreen(navController: NavController) {
                 modifier = Modifier
                     .size(28.dp)
                     .clickable {
-                        val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/Aditys018"))
-                        context.startActivity(intent)
+                        val url = "https://github.com/Aditys018"
+                        if (url.startsWith("https://")) {
+                            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+                            context.startActivity(intent)
+                        } else {
+                            android.widget.Toast.makeText(context, "Warning: Not a secure (HTTPS) link. Link will not be opened.", android.widget.Toast.LENGTH_SHORT).show()
+                        }
                     }
             )
         }
