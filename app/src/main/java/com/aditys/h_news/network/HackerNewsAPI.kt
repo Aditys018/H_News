@@ -7,7 +7,6 @@ import com.aditys.h_news.model.UserResponse
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
-
 interface HackerNewsApi {
     @GET("item/{id}")
     suspend fun getItem(@Path("id") id: Int): ItemResponse

@@ -133,8 +133,12 @@ fun JobItem(job: Job, onClick: () -> Unit) {
                     text = AnnotatedString(it),
                     style = MaterialTheme.typography.bodySmall.copy(color = Color(0xFFF4A261)),
                     onClick = { _ ->
-                        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(it))
-                        context.startActivity(intent)
+                        if (it.startsWith("https://")) {
+                            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(it))
+                            context.startActivity(intent)
+                        } else {
+                            android.widget.Toast.makeText(context, "Warning: Not a secure (HTTPS) link. Link will not be opened.", android.widget.Toast.LENGTH_SHORT).show()
+                        }
                     }
                 )
             }
