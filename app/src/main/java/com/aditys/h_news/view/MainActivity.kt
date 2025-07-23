@@ -3,30 +3,26 @@ package com.aditys.h_news.view
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.core.view.WindowCompat
-import android.os.Build
-import android.view.WindowInsetsController
-import androidx.compose.ui.graphics.Color
-import androidx.core.view.WindowInsetsControllerCompat
-import com.aditys.h_news.theme.H_NewsTheme
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import com.aditys.h_news.ui.theme.H_NewsTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        // Make content draw behind the system bars
-        WindowCompat.setDecorFitsSystemWindows(window, false)
-
-        // Set status bar transparent
-        window.statusBarColor = android.graphics.Color.TRANSPARENT
-
-        // Optional: Set light or dark icons for the status bar
-        WindowInsetsControllerCompat(window, window.decorView).isAppearanceLightStatusBars = false // false = white icons
-
         setContent {
             H_NewsTheme {
-                AppNavigation()
+                Surface(color = MaterialTheme.colorScheme.background) {
+                    Greeting("Android")
+                }
             }
         }
     }
+}
+
+@Composable
+fun Greeting(name: String) {
+    Text(text = "Hello $name!")
 }

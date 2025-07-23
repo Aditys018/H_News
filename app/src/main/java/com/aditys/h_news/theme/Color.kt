@@ -1,4 +1,4 @@
-package com.aditys.h_news.theme
+package com.aditys.h_news.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
