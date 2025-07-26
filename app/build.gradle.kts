@@ -58,10 +58,10 @@ dependencies {
     implementation(libs.androidx.datastore.preferences) //Datastore
     implementation(libs.androidx.foundation) //Compose Foundation
     implementation(libs.accompanist.systemuicontroller) //Accompanist
+    implementation(libs.androidx.hilt.navigation.compose) // navigation
     implementation(libs.paging.runtime) //Paging 3
     implementation(libs.androidx.paging.compose)
     implementation(libs.hilt.android) //hilt
-    implementation(libs.androidx.hilt.navigation.compose)
     ksp(libs.hilt.android.compiler)
     implementation(libs.androidx.room.room.runtime) //Room
     implementation(libs.androidx.room.ktx)
