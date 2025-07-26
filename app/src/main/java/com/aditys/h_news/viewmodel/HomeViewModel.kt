@@ -2,15 +2,19 @@ package com.aditys.h_news.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.aditys.h_news.data.NewsRepository
 import com.aditys.h_news.model.Job
 import com.aditys.h_news.model.SearchResult
-import com.aditys.h_news.repository.NewsRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
 import com.aditys.h_news.model.ItemResponse
+import java.util.Date
+import java.util.Locale
+import javax.inject.Inject
 
 enum class NewsFilter { TRENDING, NEW, PAST, SHOW, JOBS }
 
@@ -23,8 +27,11 @@ data class HomeUiState(
     val error: String? = null
 )
 
-class HomeViewModel(
-    private val repository: NewsRepository = NewsRepository()
+@HiltViewModel
+class HomeViewModel
+@Inject
+constructor(
+    private val repository: NewsRepository
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(HomeUiState(isLoading = true))
@@ -35,7 +42,8 @@ class HomeViewModel(
     }
 
     fun onFilterSelected(filter: NewsFilter) {
-        _uiState.value = _uiState.value.copy(selectedFilter = filter, isLoading = true, error = null)
+        _uiState.value =
+            _uiState.value.copy(selectedFilter = filter, isLoading = true, error = null)
         when (filter) {
             NewsFilter.TRENDING -> fetchTrending()
             NewsFilter.NEW -> fetchNew()

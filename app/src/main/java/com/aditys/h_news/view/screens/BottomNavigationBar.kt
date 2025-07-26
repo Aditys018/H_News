@@ -18,7 +18,11 @@ fun BottomNavigationBar(
             val selected = item.route == backStackEntry.value?.destination?.route
             NavigationBarItem(
                 icon = { Icon(painterResource(id = item.icon), contentDescription = item.title) },
-                label = if (selected) { { Text(item.title) } } else { null },
+                label = if (selected) {
+                    { Text(item.title) }
+                } else {
+                    null
+                },
                 selected = selected,
                 alwaysShowLabel = false,
                 onClick = {

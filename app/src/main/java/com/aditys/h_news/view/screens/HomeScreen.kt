@@ -1,34 +1,49 @@
 package com.aditys.h_news.view.screens
 
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
-import com.aditys.h_news.model.SearchResult
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import com.aditys.h_news.model.Job
+import com.aditys.h_news.model.SearchResult
 import com.aditys.h_news.viewmodel.HomeViewModel
 import com.aditys.h_news.viewmodel.NewsFilter
-import java.text.SimpleDateFormat
-import java.util.*
-import androidx.navigation.NavController
 import kotlinx.coroutines.launch
-import com.aditys.h_news.model.ItemResponse
-import androidx.compose.foundation.text.ClickableText
-import androidx.compose.ui.text.AnnotatedString
-import android.content.Intent
-import android.net.Uri
-import androidx.compose.ui.platform.LocalContext
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Date
+import java.util.Locale
 
 fun epochToDateString(epoch: Int): String {
     val date = Date(epoch * 1000L)
@@ -38,7 +53,7 @@ fun epochToDateString(epoch: Int): String {
 
 @Composable
 fun HomeScreen(
-    viewModel: HomeViewModel = viewModel(),
+    viewModel: HomeViewModel = hiltViewModel(),
     onPostClick: (SearchResult) -> Unit = {},
     navController: NavController
 ) {
@@ -52,7 +67,7 @@ fun HomeScreen(
 
     val trending2024 = uiState.newsList
         .filter { item ->
-            item.created_at_i?.let {
+            item.createdAtI?.let {
                 val cal = Calendar.getInstance().apply { timeInMillis = it * 1000L }
                 cal.get(Calendar.YEAR) == 2024
             } ?: false
@@ -79,10 +94,10 @@ fun HomeScreen(
                         val fullItem = viewModel.fetchFullNewsItem(id)
                         navController.navigate(
                             "newsDetail/" +
-                            "${android.net.Uri.encode(fullItem?.title ?: post.title ?: "")}/" +
-                            "${android.net.Uri.encode(fullItem?.author ?: post.author ?: "")}/" +
-                            "${android.net.Uri.encode(fullItem?.text ?: "No content available")}/" +
-                            "${android.net.Uri.encode(fullItem?.url ?: post.url ?: "")}"
+                                    "${android.net.Uri.encode(fullItem?.title ?: post.title ?: "")}/" +
+                                    "${android.net.Uri.encode(fullItem?.author ?: post.author ?: "")}/" +
+                                    "${android.net.Uri.encode(fullItem?.text ?: "No content available")}/" +
+                                    "${android.net.Uri.encode(fullItem?.url ?: post.url ?: "")}"
                         )
                     }
                 }) {
@@ -116,7 +131,7 @@ fun HomeScreen(
                 NewsFilter.JOBS -> JobsList(uiState.jobsList)
                 NewsFilter.PAST -> {
                     val sortedNews = uiState.newsList.sortedByDescending { item ->
-                        item.created_at_i ?: 0
+                        item.createdAtI ?: 0
                     }
                     NewsList(sortedNews, onPostClick = { item ->
                         val id = item.objectID?.toIntOrNull() ?: return@NewsList
@@ -124,24 +139,25 @@ fun HomeScreen(
                             val fullItem = viewModel.fetchFullNewsItem(id)
                             navController.navigate(
                                 "newsDetail/" +
-                                "${android.net.Uri.encode(fullItem?.title ?: item.title ?: "")}/" +
-                                "${android.net.Uri.encode(fullItem?.author ?: item.author ?: "")}/" +
-                                "${android.net.Uri.encode(fullItem?.text ?: "No content available")}/" +
-                                "${android.net.Uri.encode(fullItem?.url ?: item.url ?: "")}"
+                                        "${android.net.Uri.encode(fullItem?.title ?: item.title ?: "")}/" +
+                                        "${android.net.Uri.encode(fullItem?.author ?: item.author ?: "")}/" +
+                                        "${android.net.Uri.encode(fullItem?.text ?: "No content available")}/" +
+                                        "${android.net.Uri.encode(fullItem?.url ?: item.url ?: "")}"
                             )
                         }
                     })
                 }
+
                 else -> NewsList(uiState.newsList, onPostClick = { item ->
                     val id = item.objectID?.toIntOrNull() ?: return@NewsList
                     coroutineScope.launch {
                         val fullItem = viewModel.fetchFullNewsItem(id)
                         navController.navigate(
                             "newsDetail/" +
-                            "${android.net.Uri.encode(fullItem?.title ?: item.title ?: "")}/" +
-                            "${android.net.Uri.encode(fullItem?.author ?: item.author ?: "")}/" +
-                            "${android.net.Uri.encode(fullItem?.text ?: "No content available")}/" +
-                            "${android.net.Uri.encode(fullItem?.url ?: item.url ?: "")}"
+                                    "${Uri.encode(fullItem?.title ?: item.title ?: "")}/" +
+                                    "${Uri.encode(fullItem?.author ?: item.author ?: "")}/" +
+                                    "${Uri.encode(fullItem?.text ?: "No content available")}/" +
+                                    "${Uri.encode(fullItem?.url ?: item.url ?: "")}"
                         )
                     }
                 })
@@ -165,14 +181,14 @@ fun TrendingCard(item: SearchResult) {
         )
         Spacer(Modifier.height(4.dp))
         Text(
-            text = item.story_text ?: item.url ?: "",
+            text = item.storyText ?: item.url ?: "",
             color = Color.White
         )
         Spacer(Modifier.height(8.dp))
         Row {
             Text("${item.points ?: 0} points", color = Color(0xFFF4A261))
             Spacer(Modifier.width(16.dp))
-            Text("${item.num_comments ?: 0} comments", color = Color(0xFFF4A261))
+            Text("${item.numComments ?: 0} comments", color = Color(0xFFF4A261))
         }
     }
 }
@@ -233,30 +249,34 @@ fun NewsCard(item: SearchResult, onClick: () -> Unit) {
     ) {
         // Show title or story_title or fallback
         val heading = item.title?.takeIf { it.isNotBlank() }
-            ?: item.story_title?.takeIf { it.isNotBlank() }
+            ?: item.storyTitle?.takeIf { it.isNotBlank() }
             ?: "No Title"
         Text(heading, color = Color.White, fontWeight = FontWeight.Bold)
         Spacer(Modifier.height(4.dp))
         Text("by ${item.author ?: "unknown"}", color = Color(0xFFF4A261))
         Spacer(Modifier.height(4.dp))
         // Show story_text only if available (do not show fallback)
-        val details = item.story_text?.takeIf { it.isNotBlank() }
+        val details = item.storyText?.takeIf { it.isNotBlank() }
         if (!details.isNullOrBlank()) {
             Text(details, color = Color.Gray)
             Spacer(Modifier.height(4.dp))
         }
         // Date/time
-        item.created_at?.let {
+        item.createdAt?.let {
             Text("Posted: $it", color = Color.Gray, style = MaterialTheme.typography.bodySmall)
         }
-        item.created_at_i?.let {
-            Text("Posted: ${epochToDateString(it)}", color = Color.Gray, style = MaterialTheme.typography.bodySmall)
+        item.createdAtI?.let {
+            Text(
+                "Posted: ${epochToDateString(it)}",
+                color = Color.Gray,
+                style = MaterialTheme.typography.bodySmall
+            )
         }
         Spacer(Modifier.height(4.dp))
         Row {
             Text("${item.points ?: 0} points", color = Color(0xFFF4A261))
             Spacer(Modifier.width(16.dp))
-            Text("${item.num_comments ?: 0} comments", color = Color(0xFFF4A261))
+            Text("${item.numComments ?: 0} comments", color = Color(0xFFF4A261))
         }
     }
 }
